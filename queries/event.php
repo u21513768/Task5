@@ -14,7 +14,14 @@ session_start();
 
         if(mysqli_query($con, $query) === true)
         {
-            echo '<script>alert("Delete successful")</script>';
+            if (mysqli_affected_rows($con) > 0) {
+                echo '<script>alert("Delete successful")</script>';
+            }
+            else {
+                echo "The data you submitted did not match the 
+                current data so nothing was changed.<br><br>";
+            }
+            
         }
         else
         {

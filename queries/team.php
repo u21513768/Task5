@@ -6,6 +6,29 @@ session_start();
     include("functions.php");
 
     $user_data = check_if_login($con);
+
+    if(isset($_POST['delete_id']))
+    {
+        $id = $_POST['remove_id'];
+        $query = "DELETE FROM team WHERE team_id = '$id'";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            if (mysqli_affected_rows($con) > 0) {
+                echo '<script>alert("Delete successful")</script>';
+            }
+            else {
+                echo "The data you submitted did not match the 
+                current data so nothing was changed.<br><br>";
+            }
+            
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+            echo '<script>alert("Delete unsuccessful")</script>';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
