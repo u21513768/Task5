@@ -6,6 +6,21 @@ session_start();
     include("functions.php");
 
     $user_data = check_if_login($con);
+
+    if(isset($_POST['delete_id']))
+    {
+        $id = $_POST['remove_id'];
+        $query = "DELETE FROM event WHERE event_id = '$id'";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            echo '<script>alert("Delete successful")</script>';
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
