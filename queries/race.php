@@ -29,6 +29,25 @@ session_start();
             echo '<script>alert("Delete unsuccessful")</script>';
         }
     }
+
+    if(isset($_POST['input_data']))
+    {
+        $pool_id = $_POST['pool_id'];
+        $event_id = $_POST['event_id'];
+        $date = $_POST['date'];
+        $distance = $_POST['distance'];
+        $stroke_type = $_POST['stroke_type'];
+        $query = "INSERT INTO race (Pool_ID, Event_ID, Date, Distance, Stroke_Type) VALUES ('$pool_id', ' $event_id', '$date', '$distance' , '$stroke_type')";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            echo '<script>alert("Data Added successfully")</script>';
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +71,7 @@ session_start();
 
             <input type="text" name="pool_id" id="pool_id" value="Pool ID"/>
             <input type="text" name="event_id" id="event_id" value="Event ID"/>
-            <input type="text" name="date" id="date" value="Date"/>
+            <input type="date" name="date" id="date" value="Date"/>
             <input type="text" name="distance" id="distance" value="Distance"/>
             <input type="text" name="stroke_type" id="stroke_type" value="Stroke Type"/>
             <input type="submit" name="input_data" value="Add"/><br/><br/>

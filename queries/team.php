@@ -29,6 +29,21 @@ session_start();
             echo '<script>alert("Delete unsuccessful")</script>';
         }
     }
+
+    if(isset($_POST['input_data']))
+    {
+        $team_name = $_POST['team_name'];
+        $query = "INSERT INTO team (team_name) VALUES ('$team_name')";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            echo '<script>alert("Data Added successfully")</script>';
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>

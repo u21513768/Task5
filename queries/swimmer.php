@@ -29,6 +29,23 @@ session_start();
             echo '<script>alert("Delete unsuccessful")</script>';
         }
     }
+
+    if(isset($_POST['input_data']))
+    {
+        $Fname = $_POST['Fname'];
+        $Lname = $_POST['Lname'];
+        $sex = $_POST['sex'];
+        $query = "INSERT INTO swimmer (Fname, Lname, sex) VALUES ('$Fname', '$Lname', '$sex')";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            echo '<script>alert("Data Added successfully")</script>';
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +69,10 @@ session_start();
 
             <input type="text" name="Fname" id="Fname" value="First Name"/>
             <input type="text" name="Lname" id="Lname" value="Last Name"/>
-            <input type="text" name="sex" id="sex" value="Sex"/>
+            <input type="text" name="sex" id="sex" value="Sex"/><br/>
+
+            Swimmer forms part of a team?
+            <input type="checkbox" name="is_team_swimmer" value="Team"></br>
             <input type="submit" name="input_data" value="Add"/><br/><br/>
         </form>
         <div>
