@@ -32,5 +32,109 @@ session_start();
             <input type="text" name="sex" id="sex" value="Sex"/>
             <input type="submit" name="input_data" value="Add"/><br/><br/>
         </form>
+        <div>
+            <?php
+                if(isset($_POST['getwimmers'])){
+
+                    $query1 = "SELECT * FROM swimmer";
+                    $query2 = "SELECT * FROM race_swimmer";
+                    $query3 = "SELECT * FROM solo_swimmer";
+                    $query4 = "SELECT * FROM team_swimmer";
+                    $result1  = mysqli_query($con, $query1);
+                    $result2  = mysqli_query($con, $query2);
+                    $result3  = mysqli_query($con, $query3);
+                    $result4  = mysqli_query($con, $query4);
+                    
+                    if (mysqli_num_rows($result1) > 0) 
+                    {
+
+                        echo "<table>";
+                        echo "<tr>Swimmer Table: </tr><br/>";
+                        while($row = mysqli_fetch_assoc($result1))
+                        {
+                            echo "<tr>";
+                            foreach ($row as $k=>$v) 
+                            {
+                                //echo "<td>";
+                                echo "$k: $v";
+                                echo "\t";
+                                //echo "</td>";
+                            }
+                            echo "<br/>";
+                            echo "</tr>";
+                        }
+                        echo "</table><br/><br/>";
+                    
+                    }
+
+                    if (mysqli_num_rows($result2) > 0) 
+                    {
+
+                        echo "<table>";
+                        echo "<tr>Race_Swimmer Table: </tr><br/>";
+                        while($row = mysqli_fetch_assoc($result2))
+                        {
+                            echo "<tr>";
+                            foreach ($row as $k=>$v) 
+                            {
+                                //echo "<td>";
+                                echo "$k: $v";
+                                echo "\t";
+                                //echo "</td>";
+                            }
+                            echo "<br/>";
+                            echo "</tr>";
+                        }
+                        echo "</table><br/><br/>";
+                    
+                    }
+
+                    if (mysqli_num_rows($result3) > 0) 
+                    {
+
+                        echo "<table>";
+                        echo "<tr>Solo_Swimmer Table: </tr><br/>";
+                        while($row = mysqli_fetch_assoc($result3))
+                        {
+                            echo "<tr>";
+                            foreach ($row as $k=>$v) 
+                            {
+                                //echo "<td>";
+                                echo "$k: $v";
+                                echo "\t";
+                                //echo "</td>";
+                            }
+                            echo "<br/>";
+                            echo "</tr>";
+                        }
+                        echo "</table><br/><br/>";
+                    
+                    }
+
+                    if (mysqli_num_rows($result4) > 0) 
+                    {
+
+                        echo "<table>";
+                        echo "<tr>Team_Swimmer Table: </tr><br/>";
+                        while($row = mysqli_fetch_assoc($result4))
+                        {
+                            echo "<tr>";
+                            foreach ($row as $k=>$v) 
+                            {
+                                //echo "<td>";
+                                echo "$k: $v";
+                                echo "\t";
+                                //echo "</td>";
+                            }
+                            echo "<br/>";
+                            echo "</tr>";
+                        }
+                        echo "</table><br/><br/>";
+                    
+                    }
+                    unset($_POST['getEvents']);
+                }
+            ?>
+        </div>
     </body>
 </html>
