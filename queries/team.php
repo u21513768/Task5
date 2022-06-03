@@ -22,11 +22,13 @@ session_start();
         <h1>This is the Teams page</h1>
         Hello <?php echo $user_data['user_name'];   ?><br/><br/>
 
-        <input type="submit" name="getEvents" value="Display All Teams"/><br/><br/>
-        <input type="text" name="query_ID" id="query_ID" value="Query Team by ID"/>
-        <input type="submit" name="search_ID" value="Search"/><br/><br/>
+        <form method="post">
+            <input type="submit" name="getEvents" value="Display All Teams"/><br/><br/>
+            <input type="text" name="remove_id" id="remove_id" value="Remove Team by ID"/>
+            <input type="submit" name="delete_id" value="Delete"/><br/><br/>
 
-        <input type="text" name="team_name" id="team_name" value="Team Name"/>
-        <input type="submit" name="input_data" value="Add"/><br/><br/>
+            <input type="text" name="team_name" id="team_name" value="Team Name"/>
+            <input type="submit" name="input_data" value="Add"/><br/><br/>
+        </form>
     </body>
 </html>
