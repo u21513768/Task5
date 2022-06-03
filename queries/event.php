@@ -94,6 +94,10 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
+                    else
+                    {
+                        echo "Event table is empty<br/><br/>";
+                    }
 
                     if (mysqli_num_rows($result2) > 0) 
                     {
@@ -115,6 +119,10 @@ session_start();
                         }
                         echo "</table><br/><br/>";
                     
+                    }
+                    else
+                    {
+                        echo "Venue_Event table is empty<br/><br/>";
                     }
                     unset($_POST['getEvents']);
                 }

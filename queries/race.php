@@ -65,6 +65,10 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
+                    else
+                    {
+                        echo "Race table is empty<br/><br/>";
+                    }
 
                     if (mysqli_num_rows($result2) > 0) 
                     {
@@ -87,6 +91,11 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
+                    else
+                    {
+                        echo "Race_Swimmer table is empty<br/><br/>";
+                    }
+
                     unset($_POST['getEvents']);
                 }
             ?>

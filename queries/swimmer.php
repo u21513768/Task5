@@ -34,7 +34,7 @@ session_start();
         </form>
         <div>
             <?php
-                if(isset($_POST['getwimmers'])){
+                if(isset($_POST['getSwimmers'])){
 
                     $query1 = "SELECT * FROM swimmer";
                     $query2 = "SELECT * FROM race_swimmer";
@@ -66,6 +66,10 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
+                    else
+                    {
+                        echo "Swimmer table is empty<br/><br/>";
+                    }
 
                     if (mysqli_num_rows($result2) > 0) 
                     {
@@ -87,6 +91,10 @@ session_start();
                         }
                         echo "</table><br/><br/>";
                     
+                    }
+                    else
+                    {
+                        echo "Race_Swimmer table is empty<br/><br/>";
                     }
 
                     if (mysqli_num_rows($result3) > 0) 
@@ -110,6 +118,10 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
+                    else
+                    {
+                        echo "Solo_Swimmer table is empty<br/><br/>";
+                    }
 
                     if (mysqli_num_rows($result4) > 0) 
                     {
@@ -132,7 +144,12 @@ session_start();
                         echo "</table><br/><br/>";
                     
                     }
-                    unset($_POST['getEvents']);
+                    else
+                    {
+                        echo "Team_Swimmer table is empty<br/><br/>";
+                    }
+
+                    //unset($_POST['getEvents']);
                 }
             ?>
         </div>
