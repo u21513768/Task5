@@ -19,6 +19,23 @@ session_start();
         else
         {
             echo "Error: " . $query . "<br>" . $con->error;
+            echo '<script>alert("Delete unsuccessful")</script>';
+        }
+    }
+
+    if(isset($_POST['input_data']))
+    {
+        $event_name = $_POST['event_name'];
+        $race_number = $_POST['num_races'];
+        $query = "INSERT INTO event (event_name, num_races) VALUES ('$event_name', '$race_number')";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            echo '<script>alert("Data Added successfully")</script>';
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
         }
     }
 ?>
