@@ -6,6 +6,31 @@ session_start();
     include("functions.php");
 
     $user_data = check_if_login($con);
+
+    if(isset($_POST['input_data']))
+    {
+        $race_id = $_POST['inputRace_id'];
+        $swimmer_id = $_POST['inputSwimmer_id'];
+        $swimmer_time = $_POST['swimmer_time'];
+        $swimmer_position = $_POST['position'];
+        $query = "UPDATE race_swimmer SET swimmer_time = '$swimmer_time', swimmer_position = '$swimmer_position' WHERE race_id = '$race_id' AND swimmer_id = '$swimmer_id'";
+
+        if(mysqli_query($con, $query) === true)
+        {
+            if (mysqli_affected_rows($con) > 0) {
+                echo '<script>alert("Data added successfully")</script>';
+            }
+            else {
+                echo "The data you submitted did not match the 
+                current data so nothing was changed.<br><br>";
+            }
+            
+        }
+        else
+        {
+            echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +50,12 @@ session_start();
         Hello <?php echo $user_data['user_name'];   ?><br/><br/>
 
         <form method="post">
+
+            <input type="text" name="inputRace_id" id="inputRace_id" value="Race ID"/>
+            <input type="text" name="inputSwimmer_id" id="inputSwimmer_id" value="Swimmer ID"/>
+            <input type="time" name="swimmer_time" id="swimmer_time" value="Swimmer Time"/>
+            <input type="text" name="position" id="position" value="Swimmer Position"/>
+            <input type="submit" name="input_data" id="input_data" value="Add"/><br/><br/>
             
             <input type="text" name="event_id" id="event_id" value="Event ID"/><br/><br/>
             <input type="submit" name="getEvent" value="Event Info"/>
