@@ -16,6 +16,7 @@ session_start();
     <body>
         <a href="../login/logout.php">logout</a>
         <a href="event.php">Events</a>
+        <a href="venue.php">Venues</a>
         <a href="race.php">Races</a>
         <a href="swimmer.php">Swimmer</a>
         <a href="team.php">Team</a>
@@ -24,13 +25,22 @@ session_start();
         Hello <?php echo $user_data['user_name'];   ?><br/><br/>
 
         <form method="post">
-            <input type="submit" name="getEvents" value="Display All Events"/><br/><br/>
-            <input type="text" name="remove_id" id="remove_id" value="Remove Event by ID"/>
-            <input type="submit" name="delete_id" value="Delete"/><br/><br/>
+            
+            <input type="text" name="remove_id" id="remove_id" value="Event ID"/><br/><br/>
+            <input type="submit" name="getEvent" value="Event Info"/>
+            <br/><br/>
 
-            <input type="text" name="event_name" id="event_name" value="Event Name"/>
-            <input type="text" name="num_races" id="num_aces" value="Number of Races"/>
-            <input type="submit" name="input_data" value="Add"/><br/><br/>
+            <input type="text" name="remove_id" id="remove_id" value="Team ID"/><br/><br/>
+            <input type="submit" name="getTeam" value="Team Info"/>
+            <br/><br/>
+
+            <input type="text" name="remove_id" id="remove_id" value="Race ID"/><br/><br/>
+            <input type="submit" name="getRace" value="Race Info"/>
+            <br/><br/>
+
+            <input type="text" name="remove_id" id="remove_id" value="Swimmer ID"/><br/><br/>
+            <input type="submit" name="getSwimmer" value="Swimmer Info"/>
+            <br/><br/>
         </form>
         <div>
             <?php

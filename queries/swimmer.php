@@ -36,15 +36,63 @@ session_start();
         $Lname = $_POST['Lname'];
         $sex = $_POST['sex'];
         $query = "INSERT INTO swimmer (Fname, Lname, sex) VALUES ('$Fname', '$Lname', '$sex')";
-
-        if(mysqli_query($con, $query) === true)
+        $query2;
+        
+       
+        if (isset($_POST['is_team_swimmer']))
         {
-            echo '<script>alert("Data Added successfully")</script>';
+            $team_id = $_POST['team_id'];
+            $result = $con->query("SELECT team_id FROM team WHERE team_id = '$team_id'");
+            if($result->num_rows == 0) 
+            {
+                // row not found, do stuff...
+                echo "Please enter valid team_ID";
+            }
+            else 
+            { 
+                if(mysqli_query($con, $query) === true)
+                {
+        
+                    $swimmer_id = mysqli_insert_id($con);
+                    $query2 = "INSERT INTO team_swimmer (swimmer_id, team_id) VALUES ('$swimmer_id', '$team_id')";
+                    if(mysqli_query($con, $query2) === true)
+                    {
+                        echo '<script>alert("Data Added successfully")</script>';
+                    }
+                    else
+                    {
+                        echo "Error: " . $query2 . "<br>" . $con->error;
+                    }
+                }
+                else
+                {
+                    echo "Error: " . $query . "<br>" . $con->error;
+                }
+            }
         }
         else
         {
-            echo "Error: " . $query . "<br>" . $con->error;
+            if(mysqli_query($con, $query) === true)
+            {
+                $swimmer_id = mysqli_insert_id($con);
+                $query2 = "INSERT INTO solo_swimmer (swimmer_id) VALUES ('$swimmer_id')";
+                if(mysqli_query($con, $query2) === true)
+                {
+                    echo '<script>alert("Data Added successfully")</script>';
+                }
+                else
+                {
+                    echo "Error: " . $query2 . "<br>" . $con->error;
+                }
+            }
+            else
+            {
+                echo "Error: " . $query . "<br>" . $con->error;
+            }
         }
+
+        
+        
     }
 ?>
 
@@ -56,6 +104,7 @@ session_start();
     <body>
         <a href="../login/logout.php">logout</a>
         <a href="event.php">Events</a>
+        <a href="venue.php">Venues</a>
         <a href="race.php">Races</a>
         <a href="swimmer.php">Swimmer</a>
         <a href="team.php">Team</a>
@@ -70,7 +119,8 @@ session_start();
 
             <input type="text" name="Fname" id="Fname" value="First Name"/>
             <input type="text" name="Lname" id="Lname" value="Last Name"/>
-            <input type="text" name="sex" id="sex" value="Sex"/><br/>
+            <input type="text" name="sex" id="sex" value="Sex"/>
+            <input type="text" name="team_id" id="team_id" value="Team ID"/><br/>
 
             Swimmer forms part of a team?
             <input type="checkbox" name="is_team_swimmer" value="Team"></br>

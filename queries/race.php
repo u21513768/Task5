@@ -39,13 +39,69 @@ session_start();
         $stroke_type = $_POST['stroke_type'];
         $query = "INSERT INTO race (Pool_ID, Event_ID, Date, Distance, Stroke_Type) VALUES ('$pool_id', ' $event_id', '$date', '$distance' , '$stroke_type')";
 
-        if(mysqli_query($con, $query) === true)
+        $result1 = $con->query("SELECT pool_id FROM pool WHERE pool_id = '$pool_id'");
+        if($result1->num_rows == 0) 
         {
-            echo '<script>alert("Data Added successfully")</script>';
+            // row not found, do stuff...
+            echo "Please enter valid pool_ID";
         }
-        else
+        else 
+        { 
+            $result2 = $con->query("SELECT event_id FROM event WHERE event_id = '$event_id'");
+            if($result2->num_rows == 0) 
+            {
+                // row not found, do stuff...
+                echo "Please enter valid event_ID";
+            }
+            else 
+            { 
+                
+                if(mysqli_query($con, $query) === true)
+                {
+                    echo '<script>alert("Data Added successfully")</script>';
+                }
+                else
+                {
+                    echo "Error: " . $query . "<br>" . $con->error;
+                }
+                
+            }
+        }
+    }
+
+    if(isset($_POST['input_swimmer']))
+    {
+        $race_id = $_POST['race_id'];
+        $swimmer_id = $_POST['swimmer_id'];
+        $event_id = $_POST['event_id'];
+        $query1 = "INSERT INTO race_swimmer (race_id, swimmer_id) VALUES ('$race_id' , '$swimmer_id')";
+        $query2 = "INSERT INTO event_swimmer (event_id, swimmer_id) VALUES ('$event_id', '$swimmer_id)'";
+
+        $result1 = $con->query("SELECT swimmer_id FROM swimmer WHERE swimmer_id = '$swimmer_id'");
+        if($result1->num_rows == 0) 
         {
-            echo "Error: " . $query . "<br>" . $con->error;
+            // row not found, do stuff...
+            echo "Please enter valid swimmer_ID";
+        }
+        else 
+        { 
+            $result2 = $con->query("SELECT race_id FROM race WHERE race_id = '$race_id'");
+            if($result2->num_rows == 0) 
+            {
+                // row not found, do stuff...
+                echo "Please enter valid race_ID";
+            }
+            else 
+            { 
+                if(mysqli_query($con, $query1) === true && mysqli_query($con, $query2) === true)
+                {
+                    echo '<script>alert("Data Added successfully")</script>';
+                }
+                else
+                {
+                    echo "Error: " . $query1 . $query2 . "<br>" . $con->error;
+                }
+            }
         }
     }
 ?>
@@ -58,6 +114,7 @@ session_start();
     <body>
         <a href="../login/logout.php">logout</a>
         <a href="event.php">Events</a>
+        <a href="venue.php">Venues</a>
         <a href="race.php">Races</a>
         <a href="swimmer.php">Swimmer</a>
         <a href="team.php">Team</a>
@@ -76,6 +133,10 @@ session_start();
             <input type="text" name="distance" id="distance" value="Distance"/>
             <input type="text" name="stroke_type" id="stroke_type" value="Stroke Type"/>
             <input type="submit" name="input_data" value="Add"/><br/><br/>
+            
+            <input type="text" name="race_id" id="race_id" value="Race ID"/>
+            <input type="text" name="swimmer_id" id="swimmer_id" value="Swimmer ID"/>
+            <input type="submit" name="input_swimmer" value="Add"/><br/><br/>
         </form>
         <div>
             <?php

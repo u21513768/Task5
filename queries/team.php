@@ -54,6 +54,7 @@ session_start();
     <body>
         <a href="../login/logout.php">logout</a>
         <a href="event.php">Events</a>
+        <a href="venue.php">Venues</a>
         <a href="race.php">Races</a>
         <a href="swimmer.php">Swimmer</a>
         <a href="team.php">Team</a>
