@@ -102,9 +102,10 @@ session_start();
 
                     $query1 = "SELECT * FROM event";
                     $query2 = "SELECT * FROM venue_event";
+                    $query3 = "SELECT * FROM event_swimmer";
                     $result1  = mysqli_query($con, $query1);
                     $result2  = mysqli_query($con, $query2);
-
+                    $result3  = mysqli_query($con, $query3);
                     
                     if (mysqli_num_rows($result1) > 0) 
                     {
@@ -157,6 +158,33 @@ session_start();
                     {
                         echo "Venue_Event table is empty<br/><br/>";
                     }
+
+                    if (mysqli_num_rows($result3) > 0) 
+                    {
+
+                        echo "<table>";
+                        echo "<tr>Event_Swimmer Table: </tr><br/>";
+                        while($row = mysqli_fetch_assoc($result3))
+                        {
+                            echo "<tr>";
+                            foreach ($row as $k=>$v) 
+                            {
+                                //echo "<td>";
+                                echo "$k: $v";
+                                echo "\t";
+                                //echo "</td>";
+                            }
+                            echo "<br/>";
+                            echo "</tr>";
+                        }
+                        echo "</table><br/><br/>";
+                    
+                    }
+                    else
+                    {
+                        echo "Event_Swimmer table is empty<br/><br/>";
+                    }
+
                     unset($_POST['getEvents']);
                 }
             ?>

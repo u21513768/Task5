@@ -10,7 +10,7 @@ session_start();
     if(isset($_POST['delete_id']))
     {
         $id = $_POST['remove_id'];
-        $query = "DELETE FROM event WHERE event_id = '$id'";
+        $query = "DELETE FROM venue WHERE venue_id = '$id'";
 
         if(mysqli_query($con, $query) === true)
         {
@@ -32,9 +32,12 @@ session_start();
 
     if(isset($_POST['input_data']))
     {
-        $event_name = $_POST['event_name'];
-        $race_number = $_POST['num_races'];
-        $query = "INSERT INTO event (event_name, num_races) VALUES ('$event_name', '$race_number')";
+        $venue_name = $_POST['venue_name'];
+        $opening_hours = $_POST['opening_hours'];
+        $street_name = $_POST['street_name'];
+        $area_code = $_POST['area_code'];
+        $street_number = $_POST['street_number'];
+        $query = "INSERT INTO venue (name, opening_hours, street_name, area_code, street_number) VALUES ('$venue_name', '$opening_hours', '$street_name', '$area_code', '$street_number')";
 
         if(mysqli_query($con, $query) === true)
         {
@@ -43,6 +46,32 @@ session_start();
         else
         {
             echo "Error: " . $query . "<br>" . $con->error;
+        }
+    }
+
+    if(isset($_POST['input_pool']))
+    {
+        $venue_id = $_POST['venue_id'];
+        $pool_name = $_POST['pool_name'];
+        $num_lanes = $_POST['num_lanes'];
+        $query = "INSERT INTO pool (venue_id, pool_name, num_lanes) VALUES ('$venue_id', '$pool_name', '$num_lanes')";
+
+        $result = $con->query("SELECT venue_id FROM venue WHERE venue_id = '$venue_id'");
+        if($result->num_rows == 0) 
+        {
+            // row not found, do stuff...
+            echo "Please enter valid venue_ID";
+        }
+        else 
+        { 
+            if(mysqli_query($con, $query) === true)
+            {
+                echo '<script>alert("Data Added successfully")</script>';
+            }
+            else
+            {
+                echo "Error: " . $query . "<br>" . $con->error;
+            }
         }
     }
 ?>
@@ -68,9 +97,17 @@ session_start();
             <input type="text" name="remove_id" id="remove_id" value="Remove Venue by ID"/>
             <input type="submit" name="delete_id" value="Delete"/><br/><br/>
 
-            <input type="text" name="event_name" id="event_name" value="Event Name"/>
-            <input type="text" name="num_races" id="num_aces" value="Number of Races"/>
+            <input type="text" name="venue_name" id="venue_name" value="Venue Name"/>
+            <input type="time" name="opening_hours" id="opening_hours" value="Opening Hours"/>
+            <input type="text" name="street_name" id="street_name" value="Street Name"/>
+            <input type="text" name="area_code" id="area_code" value="Area Code"/>
+            <input type="text" name="street_number" id="street_number" value="Street Number"/>
             <input type="submit" name="input_data" value="Add"/><br/><br/>
+
+            <input type="text" name="venue_id" id="venue_id" value="Venue ID"/>
+            <input type="text" name="pool_name" id="pool_name" value="Pool Name"/>
+            <input type="text" name="num_lanes" id="num_lanes" value="Number of Lanes"/>
+            <input type="submit" name="input_pool" value="Add"/><br/><br/>
         </form>
         <div>
             <?php
@@ -88,7 +125,7 @@ session_start();
                     {
 
                         echo "<table>";
-                        echo "<tr>Event Table: </tr><br/>";
+                        echo "<tr>Venue Table: </tr><br/>";
                         while($row = mysqli_fetch_assoc($result1))
                         {
                             echo "<tr>";
@@ -140,7 +177,7 @@ session_start();
                     {
 
                         echo "<table>";
-                        echo "<tr>Venue_Event Table: </tr><br/>";
+                        echo "<tr>Pool Table: </tr><br/>";
                         while($row = mysqli_fetch_assoc($result3))
                         {
                             echo "<tr>";
