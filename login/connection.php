@@ -1,9 +1,9 @@
 <?php
     
 
-    $dbHost = "localhost:3306";
+    $dbHost = "localhost:3305";
     $dbUser = "root";
-    $dbPass = "";
+    $dbPass = "Quintin12";
     $dbName = "swimmer_db";
 
     if(!$con = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName))

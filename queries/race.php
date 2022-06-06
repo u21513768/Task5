@@ -61,6 +61,7 @@ session_start();
         <a href="race.php">Races</a>
         <a href="swimmer.php">Swimmer</a>
         <a href="team.php">Team</a>
+        <a href="tournament.php">Tournament</a>
         <h1>This is the Races page</h1>
         Hello <?php echo $user_data['user_name'];   ?><br/><br/>
 
