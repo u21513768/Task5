@@ -10,9 +10,9 @@ session_start();
     if(isset($_POST['delete_id']))
     {
         $id = $_POST['remove_id'];
-        $query = "DELETE FROM event WHERE event_id = '$id'";
+        $query1 = "DELETE FROM event WHERE event_id = '$id'";
 
-        if(mysqli_query($con, $query) === true)
+        if(mysqli_query($con, $query1) === true)
         {
             if (mysqli_affected_rows($con) > 0) {
                 echo '<script>alert("Delete successful")</script>';
