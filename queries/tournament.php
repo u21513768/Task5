@@ -14,11 +14,25 @@ session_start();
         $swimmer_time = $_POST['swimmer_time'];
         $swimmer_position = $_POST['position'];
         $query = "UPDATE race_swimmer SET swimmer_time = '$swimmer_time', swimmer_position = '$swimmer_position' WHERE race_id = '$race_id' AND swimmer_id = '$swimmer_id'";
+        $query2 = "UPDATE event_swimmer SET swimmer_points = (SELECT SUM(swimmer_position) FROM race_swimmer WHERE swimmer_id = '$swimmer_id') WHERE swimmer_id = '$swimmer_id'";
 
         if(mysqli_query($con, $query) === true)
         {
             if (mysqli_affected_rows($con) > 0) {
-                echo '<script>alert("Data added successfully")</script>';
+                if(mysqli_query($con, $query) === true)
+                {
+                    if (mysqli_affected_rows($con) > 0) {
+                        echo '<script>alert("Data added successfully")</script>';
+                    }
+                    else {
+                        echo "The data you submitted did not match the 
+                        current data so nothing was changed.<br><br>";
+                    } 
+                }
+                else
+                {
+                    echo "Error: " . $query . "<br>" . $con->error;
+                }
             }
             else {
                 echo "The data you submitted did not match the 
